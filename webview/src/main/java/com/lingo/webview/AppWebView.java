@@ -38,7 +38,7 @@ public class AppWebView extends BridgeWebView {
 
     public boolean goback() {
         if (canGoBack()) {
-            goback();
+            goBack();
             return true;
         }
         return false;
