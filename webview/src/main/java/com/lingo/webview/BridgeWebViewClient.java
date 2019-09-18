@@ -1,7 +1,10 @@
 package com.lingo.webview;
 
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Build;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -71,6 +74,27 @@ public class BridgeWebViewClient extends WebViewClient {
     }
 
     @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+        super.onReceivedError(view, request, error);
+
+        mWebViewCallback.onReceivedError(view, request, error);
+    }
+
+    @Override
+    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+        super.onReceivedHttpError(view, request, errorResponse);
+
+        mWebViewCallback.onReceivedHttpError(view, request, errorResponse);
+    }
+
+    @Override
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        super.onReceivedSslError(view, handler, error);
+
+        mWebViewCallback.onReceivedSslError(view, handler, error);
+    }
+
+    @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
 
@@ -90,7 +114,7 @@ public class BridgeWebViewClient extends WebViewClient {
             webView.setStartupMessage(null);
         }
 
-        onCustomPageFinishd(view, url);
+        onCustomPageFinished(view, url);
     }
 
     private boolean onCustomShouldOverrideUrlLoading(WebView view, String url) {
@@ -98,7 +122,7 @@ public class BridgeWebViewClient extends WebViewClient {
         return mWebViewCallback.shouldOverrideUrlLoading(view, url);
     }
 
-    private void onCustomPageFinishd(WebView view, String url) {
+    private void onCustomPageFinished(WebView view, String url) {
 
         mWebViewCallback.onPageFinished(view, url);
     }

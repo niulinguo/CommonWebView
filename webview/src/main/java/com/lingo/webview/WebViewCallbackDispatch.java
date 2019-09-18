@@ -1,6 +1,10 @@
 package com.lingo.webview;
 
 import android.graphics.Bitmap;
+import android.net.http.SslError;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
@@ -72,6 +76,27 @@ public class WebViewCallbackDispatch implements WebViewCallback {
     public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
         for (WebViewCallback webViewCallback : mWebViewCallbacks) {
             webViewCallback.doUpdateVisitedHistory(view, url, isReload);
+        }
+    }
+
+    @Override
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        for (WebViewCallback webViewCallback : mWebViewCallbacks) {
+            webViewCallback.onReceivedSslError(view, handler, error);
+        }
+    }
+
+    @Override
+    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+        for (WebViewCallback webViewCallback : mWebViewCallbacks) {
+            webViewCallback.onReceivedHttpError(view, request, errorResponse);
+        }
+    }
+
+    @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+        for (WebViewCallback webViewCallback : mWebViewCallbacks) {
+            webViewCallback.onReceivedError(view, request, error);
         }
     }
 }
