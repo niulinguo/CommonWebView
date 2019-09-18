@@ -99,4 +99,11 @@ public class WebViewCallbackDispatch implements WebViewCallback {
             webViewCallback.onReceivedError(view, request, error);
         }
     }
+
+    @Override
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        for (WebViewCallback webViewCallback : mWebViewCallbacks) {
+            webViewCallback.onReceivedError(view, errorCode, description, failingUrl);
+        }
+    }
 }

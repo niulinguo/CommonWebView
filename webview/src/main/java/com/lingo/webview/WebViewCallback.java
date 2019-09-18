@@ -25,4 +25,6 @@ public interface WebViewCallback {
     void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse);
 
     void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error);
+
+    void onReceivedError(WebView view, int errorCode, String description, String failingUrl);
 }

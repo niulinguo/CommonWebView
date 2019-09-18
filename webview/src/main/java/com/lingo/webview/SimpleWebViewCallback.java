@@ -48,4 +48,9 @@ public class SimpleWebViewCallback implements WebViewCallback {
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
 
     }
+
+    @Override
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+
+    }
 }
